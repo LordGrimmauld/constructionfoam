@@ -109,8 +109,6 @@ tasks.withType(JavaCompile).configureEach {
 buildConfig {
     buildConfigField 'String', 'MODID', "\"${modid}\""
     buildConfigField 'String', 'VERSION', "\"${project.version}\""
-    def gitstage = getGitInfo()
-    println("Using git stage ${gitstage}")
-    buildConfigField "String", "GITHASH", "\"${gitstage}\""
+    buildConfigField "String", "GITHASH", "\"${getGitInfo()}\""
     packageName = project.group
 }
