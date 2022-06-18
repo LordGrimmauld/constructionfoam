@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "mod.grimmauld.constructionfoam.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "constructionfoam.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
