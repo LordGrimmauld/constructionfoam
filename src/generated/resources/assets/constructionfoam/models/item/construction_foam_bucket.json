@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "constructionfoam:item/construction_foam_bucket"
+  }
+}

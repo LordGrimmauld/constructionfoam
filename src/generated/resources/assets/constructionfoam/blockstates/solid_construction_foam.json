@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "constructionfoam:block/solid_construction_foam"
+    }
+  }
+}
