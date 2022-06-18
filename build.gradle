@@ -11,6 +11,7 @@ buildscript {
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
     id 'com.github.gmazzo.buildconfig' version '3.0.1'
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 apply plugin: 'org.spongepowered.mixin'
@@ -33,11 +34,13 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'constructionfoam'
+            property 'forge.enabledGameTestNamespaces', modid
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                constructionfoam {
+                $modid {
                     source sourceSets.main
                 }
             }
@@ -47,9 +50,11 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'constructionfoam'
+            property 'forge.enabledGameTestNamespaces', modid
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                constructionfoam {
+                $modid {
                     source sourceSets.main
                 }
             }
@@ -61,7 +66,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             args '--mod', modid, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
-                constructionfoam {
+                $modid {
                     source sourceSets.main
                 }
             }
@@ -78,12 +83,19 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven {
+        // create, flywheel, registrate
+        name = "tterrag maven"
+        url = "https://maven.tterrag.com/"
+    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
+
+compileJava.options.encoding = 'UTF-8'
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
@@ -111,4 +123,17 @@ buildConfig {
     buildConfigField 'String', 'VERSION', "\"${project.version}\""
     buildConfigField "String", "GITHASH", "\"${getGitInfo()}\""
     packageName = project.group
+}
+
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "UNDEFINED" // TODO when publishing, set this to the project ID
+    versionNumber = project.version
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = [minecraft_version]
+    dependencies {
+        // no dependencies
+    }
 }

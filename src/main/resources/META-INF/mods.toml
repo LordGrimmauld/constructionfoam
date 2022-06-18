@@ -6,6 +6,8 @@ modId = "constructionfoam"
 version = "${file.jarVersion}"
 displayName = "Construction Foam"
 authors = "Grimmauld, Kayla"
+issueTrackerURL = "https://github.com/LordGrimmauld/constructionfoam/issues"
+#logoFile = "constructionfoam.png"
 description = '''Construction foam mod to fill big voids with ease
 '''
 [[dependencies.constructionfoam]]
