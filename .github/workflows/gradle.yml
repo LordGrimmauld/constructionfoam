@@ -56,5 +56,6 @@ jobs:
             exit 0
           fi
           for f in build/libs/*.jar; do
-            [[ $f != *-slim.jar ]] && curl -H 'Content-Type: multipart/form-data' -X POST -F "file=@$f" $DISCORD_WEBHOOK
+            [[ $f != *-slim.jar ]] && curl -H 'Content-Type: multipart/form-data' -X POST -F "file=$f" $DISCORD_WEBHOOK
           done
+          exit 0
