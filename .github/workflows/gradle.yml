@@ -43,10 +43,10 @@ jobs:
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
         # Restoring these files from a GitHub Actions cache might cause problems for future builds.
         run: rm -f ~/.gradle/caches/modules-2/modules-2.lock & rm -f ~/.gradle/caches/modules-2/gc.properties
-      - name: Upload file to discord
-          if: ${{ secrets.CI_DISCORD_WEBHOOK != ""}}
-          uses: sinshutu/upload-to-discord@master
-          env:
-            DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
-          with:
-            args: build/libs
+      - name: Upload to dscord
+        if: ${{secrets.CI_DISCORD_WEBHOOK != ""}}
+        uses: sinshutu/upload-to-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{secrets.CI_DISCORD_WEBHOOK}}
+        with:
+          args: build/libs
