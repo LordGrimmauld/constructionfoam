@@ -161,3 +161,7 @@ modrinth {
         // no dependencies
     }
 }
+
+jar {
+    archiveClassifier.set('slim')
+}
